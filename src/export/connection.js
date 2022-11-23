@@ -4,7 +4,7 @@ const conn = mysql.createPool({
     database: "MyApp",
     host: "localhost",
     user: "root",
-    password: ""
+    password: "root"
 });
 
 module.exports = conn

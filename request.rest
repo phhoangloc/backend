@@ -1,39 +1,25 @@
-GET   http://localhost:4000/user/search
-Authorization: 40fcadd0-6658-11ed-b595-df740004cc81
-###
-POST   http://localhost:4000/user/postsearch
-Authorization: 40fcadd0-6658-11ed-b595-df740004cc81
+GET http://localhost:4000/listtodo
+Authorization: 645a2cc0-6af0-11ed-98de-832ee2aac896
+####
+
+POST  http://localhost:4000/listtodo
+Authorization: 645a2cc0-6af0-11ed-98de-832ee2aac896
 Content-Type: application/json
 
 {
-    "keysearch":"worldcup"
+    "todolist": "learn DEV"
 }
-###
-GET http://localhost:4000/admin
-Authorization: ec508050-6593-11ed-971a-9fe465821d86
-###
+####
 
-POST   http://localhost:4000/user/create
+PUT  http://localhost:4000/listtodo/2
+Authorization: 645a2cc0-6af0-11ed-98de-832ee2aac896
 Content-Type: application/json
 
 {
-    "username":"hoangloc",
-    "password":12345678,
-    "email":"ph.hoangloc1990@gmail.com"
+    "todolist": "learn REACT"
 }
-###
+####
 
-POST   http://localhost:4000/login
-Content-Type: application/json
-
-{
-    "username":"lockheart",
-    "password":"031090Ph"
-}
-###
-POST http://localhost:4000/user/reset?token=ec508050-6593-11ed-971a-9fe465821d86
-Content-Type: application/json
-
-{
-    "password":"031090PhPh"
-}
+DELETE   http://localhost:4000/listtodo/17
+Authorization: 645a2cc0-6af0-11ed-98de-832ee2aac896
+####

@@ -248,9 +248,9 @@ class userController {
     }
     getSearchbyId(req, res) {
         const id = res.id
-        const sql = `SELECT keysearch, COUNT(listsearch_id) AS "times"
+        const sql = `SELECT keysearch, COUNT(user_id) AS "times"
         FROM search
-        where listsearch_id = ( SELECT id FROM listsearch where user_id = ?)
+        where user_id = ?
         GROUP BY keysearch
         ORDER BY times DESC
 
@@ -267,8 +267,8 @@ class userController {
     postSearchFromId(req, res) {
         const id = res.id
         const keysearch = req.body.keysearch
-        const sql = `INSERT INTO search (keysearch,listsearch_id)
-        value('${keysearch}',(SELECT id FROM listsearch where user_id = ${id}))`
+        const sql = `INSERT INTO search (keysearch,user_id)
+        value('${keysearch}',${id})`
 
         con.query(sql, (err, result) => {
             if (err) { console.log(err) }
