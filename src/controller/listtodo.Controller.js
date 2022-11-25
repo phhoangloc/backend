@@ -54,6 +54,17 @@ class userController {
             }
         })
     }
+
+    toDoDone(req, res) {
+        const id = req.params.id
+        const sql = `update todolist set finish = "yes", finish_date = now() where id = ${id}`
+        con.query(sql, (err) => {
+            if (err) { console.log(err) } else {
+                res.send("todo will be done!")
+
+            }
+        })
+    }
 }
 
 module.exports = new userController;

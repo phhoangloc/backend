@@ -117,7 +117,7 @@ class userController {
         const sql = `SELECT id,password,active FROM User Where username=?`
         con.query(sql, username, (err, result) => {
             const isPasswordValid = bcryptjs.compareSync(password, result[0].password);
-            if (result[0].id == "no") {
+            if (result[0].active == "no") {
                 res.json({
                     success: false,
                     msg: "your account is not actived"
@@ -136,19 +136,33 @@ class userController {
             }
         })
     }
-    getTokenbyId(req, res) {
+
+    getTokenbyId(req, res, next) {
         const id = res.id
         const sql = `SELECT token FROM RefreshToken WHERE user_id = ? `
         con.query(sql, id, (err, result) => {
             if (err) { console.log(err) } else {
-                const data = {
-                    "id": id,
-                    "token": result[0].token
-                }
-                res.json(data)
+                res.token = result[0].token
+                next()
             }
         })
     }
+    getAccessTokentoUser(req, res) {
+
+        const accesstoken = uuid.v1().toString()
+
+        const sql = ` update RefreshToken set accessToken = '${accesstoken}' where token= '${res.token}'`
+        con.query(sql, (err) => {
+            if (err) { console.log(err) } else {
+                res.json({
+                    id: res.id,
+                    token: accesstoken
+                })
+            }
+        })
+
+    }
+
     getAllUser(req, res) {
         const sql = "Select * From User"
         con.query(sql, (err, result) => {

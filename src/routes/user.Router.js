@@ -16,7 +16,8 @@ app.post('/login',
     validation.validationFunction,
     userController.isExistById,
     userController.logIn,
-    userController.getTokenbyId
+    userController.getTokenbyId,
+    userController.getAccessTokentoUser
 )
 app.post('/resendemailtoactiveaccount',
     validation.validationResendEmailCondition,

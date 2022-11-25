@@ -1,9 +1,8 @@
-GET http://localhost:4000/listtodo
-Authorization: 645a2cc0-6af0-11ed-98de-832ee2aac896
+GET http://localhost:4000/
 ####
 
 POST  http://localhost:4000/listtodo
-Authorization: 645a2cc0-6af0-11ed-98de-832ee2aac896
+Authorization: a5bda3a0-6ba8-11ed-9ff7-e114b6a379e1lckec508050-6593-11ed-971a-9fe465821d86lcka5bda3a1-6ba8-11ed-9ff7-e114b6a379e1
 Content-Type: application/json
 
 {
@@ -23,3 +22,15 @@ Content-Type: application/json
 DELETE   http://localhost:4000/listtodo/17
 Authorization: 645a2cc0-6af0-11ed-98de-832ee2aac896
 ####
+
+PUT  http://localhost:4000/listtodo/done/2
+Authorization: ec508050-6593-11ed-971a-9fe465821d86
+####
+
+POST  http://localhost:4000/login
+Content-Type: application/json
+
+{
+    "username":"lockheart",
+    "password":"031090Ph"
+}
