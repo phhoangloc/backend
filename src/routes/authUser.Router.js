@@ -4,6 +4,7 @@ const userController = require('../controller/user.Controller')
 
 app.get('/', userController.getUserById)
 app.get('/search', userController.getSearchbyId)
+app.get('/getBrand', userController.getAllBrand)
 app.post('/updatefile', userController.uploadFileToSetBackground)
 app.post('/updatefiletosetavartar', userController.uploadFileToSetAvatar)
 app.post('/postsearch/', userController.postSearchFromId)

@@ -4,11 +4,6 @@ const con = require('../export/connection')
 const transporter = require('../export/transporter')
 
 class userController {
-
-    home(req, res) {
-        res.send("hello users")
-    }
-
     createUser(req, res, next) {
         const salt = bcryptjs.genSaltSync(10);
         const mahoa_password = bcryptjs.hashSync(req.body.password.toString(), salt);
@@ -23,7 +18,10 @@ class userController {
 
         con.query(sql, body, (err, result) => {
             if (err) {
-                console.log(err)
+                res.json({
+                    success: false,
+                    msg: err.message
+                })
             } else {
                 req.email = req.body.email;
                 next();
@@ -40,7 +38,12 @@ class userController {
         const token = uuid.v1().toString()
         const sqltoken = `INSERT INTO RefreshToken  (token,user_id) VALUE ("${token}",(SELECT id from User where email="${req.email}"))`
         con.query(sqltoken, (err) => {
-            if (err) { console.log(err) } else {
+            if (err) {
+                res.json({
+                    success: false,
+                    msg: err.message
+                })
+            } else {
                 req.token = token
                 next()
             }
@@ -52,7 +55,12 @@ class userController {
         const email = req.email
         const sql = `SELECT token FROM RefreshToken WHERE user_id = (SELECT id from User where email= ?) `
         con.query(sql, email, (err, result) => {
-            if (err) { console.log(err) } else {
+            if (err) {
+                res.json({
+                    success: false,
+                    msg: err.message
+                })
+            } else {
                 if (result) {
                     req.token = result[0].token
                     next()
@@ -75,7 +83,7 @@ class userController {
 
         transporter.sendMail(mainOptions, function (err, info) {
             if (err) {
-                res.send('Lỗi gửi mail: ' + err);
+                res.send('Lỗi gửi mail: ' + err.message);
             } else {
                 res.send(`Một email đã được gửi đến mail của bạn, kiểm tra email để active account`);
             }
@@ -86,7 +94,12 @@ class userController {
         const token = req.query.token
         const sql = `UPDATE User SET active = "yes" WHERE id =(SELECT user_id FROM RefreshToken WHERE token = ?  )`
         con.query(sql, token, (err) => {
-            if (err) { console.log(err) }
+            if (err) {
+                res.json({
+                    success: false,
+                    msg: err.message
+                })
+            }
             else {
                 res.send('Your account is active');
             }
@@ -97,7 +110,12 @@ class userController {
         const username = req.body.username;
         const sql = `SELECT id FROM User Where username=?`
         con.query(sql, username, (err, result) => {
-            if (err) { console.log(err) } else {
+            if (err) {
+                res.json({
+                    success: false,
+                    msg: err.message
+                })
+            } else {
                 if (result.length) {
                     req.username = req.body.username;
                     next()
@@ -141,7 +159,12 @@ class userController {
         const id = res.id
         const sql = `SELECT token FROM RefreshToken WHERE user_id = ? `
         con.query(sql, id, (err, result) => {
-            if (err) { console.log(err) } else {
+            if (err) {
+                res.json({
+                    success: false,
+                    msg: err.message
+                })
+            } else {
                 res.token = result[0].token
                 next()
             }
@@ -153,23 +176,16 @@ class userController {
 
         const sql = ` update RefreshToken set accessToken = '${accesstoken}' where token= '${res.token}'`
         con.query(sql, (err) => {
-            if (err) { console.log(err) } else {
+            if (err) {
+                res.json({
+                    success: false,
+                    msg: err.message
+                })
+            } else {
                 res.json({
                     id: res.id,
                     token: accesstoken
                 })
-            }
-        })
-
-    }
-
-    getAllUser(req, res) {
-        const sql = "Select * From User"
-        con.query(sql, (err, result) => {
-            if (err) {
-                console.log(err)
-            } else {
-                res.send(result)
             }
         })
     }
@@ -178,9 +194,16 @@ class userController {
         const id = res.id
         con.query(sql, id, (err, result) => {
             if (err) {
-                console.log(err)
+                res.json({
+                    success: false,
+                    msg: err.message
+                })
             } else {
-                res.send(result)
+                res.send({
+                    success: true,
+                    msg: "get user success!",
+                    data: result
+                })
             }
         })
     }
@@ -209,7 +232,12 @@ class userController {
         const password = mahoa_password;
         const sql = `UPDATE User SET password = "${password}" WHERE id = (SELECT user_id FROM RefreshToken WHERE token = "${token}"  )`
         con.query(sql, (err, result) => {
-            if (err) { console.log(err) } else {
+            if (err) {
+                res.json({
+                    success: false,
+                    msg: err.message
+                })
+            } else {
                 res.send("Your Password has been Updated")
             }
         })
@@ -220,7 +248,10 @@ class userController {
 
         uploadFile.mv(`public//background//${namefile}`, (err) => {
             if (err) {
-                console.log(err);
+                res.json({
+                    success: false,
+                    msg: err.message
+                });
             } else {
                 res.send(namefile)
             }
@@ -232,7 +263,10 @@ class userController {
 
         uploadFile.mv(`public//avatar//${namefile}`, (err) => {
             if (err) {
-                console.log(err);
+                res.json({
+                    success: false,
+                    msg: err.message
+                });
             } else {
                 res.send(namefile)
             }
@@ -272,7 +306,10 @@ class userController {
 
         con.query(sql, id, (err, result) => {
             if (err) {
-                console.log(err)
+                res.json({
+                    success: false,
+                    msg: err.message
+                })
             } else {
                 res.send(result)
             }
@@ -285,9 +322,34 @@ class userController {
         value('${keysearch}',${id})`
 
         con.query(sql, (err, result) => {
-            if (err) { console.log(err) }
+            if (err) {
+                res.json({
+                    success: false,
+                    msg: err.message
+                })
+            }
             else {
                 res.send("insert success")
+            }
+        })
+    }
+    getAllBrand(req, res) {
+        const orderby = req.query.orderby
+        const limit = req.query.limit
+        const brand = req.query.brand
+        const sql = `Select * From Brand
+        ${brand ? `WHERE brand = ` + brand : ``}
+        ${orderby ? `order by ` + orderby + ` DESC` : ``}
+        ${limit ? `limit ` + limit : ``}
+        `
+        con.query(sql, (err, result) => {
+            if (err) {
+                res.json({
+                    success: false,
+                    msg: err.message
+                })
+            } else {
+                res.send(result)
             }
         })
     }

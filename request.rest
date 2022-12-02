@@ -1,26 +1,27 @@
-GET http://localhost:4000/
+GET http://localhost:4000/myshop/brand?id=1
+Authorization: 21f251f0-714e-11ed-b4c8-c30c9f3a3f10
 ####
 
-POST  http://localhost:4000/listtodo
-Authorization: a5bda3a0-6ba8-11ed-9ff7-e114b6a379e1lckec508050-6593-11ed-971a-9fe465821d86lcka5bda3a1-6ba8-11ed-9ff7-e114b6a379e1
+POST  http://localhost:4000/myshop
+Authorization: 87b83410-714d-11ed-8920-43e143bd3b52
 Content-Type: application/json
 
 {
-    "todolist": "learn DEV"
+    "brand": "DW",
+    "cover":"DW.png"
 }
 ####
-
-PUT  http://localhost:4000/listtodo/2
-Authorization: 645a2cc0-6af0-11ed-98de-832ee2aac896
+PUT  http://localhost:4000/myshop/1
+Authorization:21f251f0-714e-11ed-b4c8-c30c9f3a3f10
 Content-Type: application/json
 
 {
-    "todolist": "learn REACT"
+    "logo":"g-shock.png"
 }
 ####
 
-DELETE   http://localhost:4000/listtodo/17
-Authorization: 645a2cc0-6af0-11ed-98de-832ee2aac896
+DELETE http://localhost:4000/myshop/9
+Authorization: 21f251f0-714e-11ed-b4c8-c30c9f3a3f10
 ####
 
 PUT  http://localhost:4000/listtodo/done/2
@@ -33,4 +34,13 @@ Content-Type: application/json
 {
     "username":"lockheart",
     "password":"031090Ph"
+}
+####
+POST  http://localhost:4000/create
+Content-Type: application/json
+
+{
+    "username":"lockheart",
+    "password":"031090Ph",
+    "email":"ph.hoangloc@gmail.com"
 }

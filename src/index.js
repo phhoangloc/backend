@@ -19,6 +19,6 @@ const route = (app) => {
 
     app.use('/listtodo', auth.authentication, listtodo)
 
-    app.use('/admin', auth.authentication, auth.authenticationRole, adminRouter)
+    app.use('/myshop', auth.authentication, auth.authenticationRole, adminRouter)
 }
 module.exports = route
