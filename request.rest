@@ -1,24 +1,16 @@
-GET http://localhost:4000/myshop/brand?id=1
+GET http://localhost:4000/myshop/product
 Authorization: 21f251f0-714e-11ed-b4c8-c30c9f3a3f10
 ####
 
-POST  http://localhost:4000/myshop
-Authorization: 87b83410-714d-11ed-8920-43e143bd3b52
+PUT  http://localhost:4000/myshop/product/1
+Authorization: 21f251f0-714e-11ed-b4c8-c30c9f3a3f10
 Content-Type: application/json
 
 {
-    "brand": "DW",
-    "cover":"DW.png"
+    "name": "G-shock 5GT",
+    "slug":"gs5gt"
 }
-####
-PUT  http://localhost:4000/myshop/1
-Authorization:21f251f0-714e-11ed-b4c8-c30c9f3a3f10
-Content-Type: application/json
-
-{
-    "logo":"g-shock.png"
-}
-####
+###
 
 DELETE http://localhost:4000/myshop/9
 Authorization: 21f251f0-714e-11ed-b4c8-c30c9f3a3f10
@@ -44,3 +36,16 @@ Content-Type: application/json
     "password":"031090Ph",
     "email":"ph.hoangloc@gmail.com"
 }
+
+POST  http://localhost:4000/myshop
+Authorization: 87b83410-714d-11ed-8920-43e143bd3b52
+Content-Type: application/json
+
+{
+    "brand": "DW",
+    "cover":"DW.png"
+}
+###
+
+DELETE http://localhost:4000/myshop/product/1
+Authorization: 21f251f0-714e-11ed-b4c8-c30c9f3a3f10

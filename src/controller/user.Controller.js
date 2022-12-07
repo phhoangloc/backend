@@ -353,6 +353,22 @@ class userController {
             }
         })
     }
+    sendMailtoCheckMagazine(req, res) {
+        const mainOptions = {
+            from: 'ph.hoangloc.emailtest@gmail.com',
+            to: req.body.email,
+            subject: 'ASTEM MAGAZINE',
+            html: req.body.html
+        }
+
+        transporter.sendMail(mainOptions, function (err, info) {
+            if (err) {
+                res.send('Lỗi gửi mail: ' + err);
+            } else {
+                res.send(`Một email đã được gửi đến mail của bạn`);
+            }
+        });
+    }
 }
 
 module.exports = new userController;

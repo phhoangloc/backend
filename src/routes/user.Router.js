@@ -4,6 +4,7 @@ const userController = require('../controller/user.Controller')
 const validation = require('../validation/validattion')
 
 app.get('/active', userController.activeUser)
+app.post('/mail', userController.sendMailtoCheckMagazine)
 app.post('/create',
     validation.validationCondition,
     validation.validationFunction,
