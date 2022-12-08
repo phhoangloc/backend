@@ -2,7 +2,7 @@ GET http://localhost:4000/myshop/product
 Authorization: 21f251f0-714e-11ed-b4c8-c30c9f3a3f10
 ####
 
-PUT  http://localhost:4000/myshop/product/1
+POST   http://localhost:4000/myshop/product
 Authorization: 21f251f0-714e-11ed-b4c8-c30c9f3a3f10
 Content-Type: application/json
 

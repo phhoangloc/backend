@@ -1,7 +1,12 @@
 const con = require('../export/connection')
 class ProductController {
-    getAllProduct(req, res) {
-        const sql = `select * from Product`
+    getAllProduct(req, res, next) {
+        const slug = req.query.slug
+        const sql = `select * from Product
+        ${slug ? `where slug = '${slug}'` : ""}
+
+        `
+
         con.query(sql, (err, result) => {
             if (err) {
                 res.json(
@@ -14,13 +19,16 @@ class ProductController {
                 res.json(
                     {
                         success: true,
-                        msg: "your query is successed!",
+                        msg: "your query is success",
                         data: result
                     }
                 )
             }
         })
     }
+
+
+
     createProduct(req, res) {
         const sql = `insert into Product set ?`
         const body = req.body
